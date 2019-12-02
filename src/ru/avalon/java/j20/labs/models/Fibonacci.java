@@ -1,6 +1,8 @@
 package ru.avalon.java.j20.labs.models;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Модель получения последовательности чисел Фибоначчи.
@@ -17,12 +19,28 @@ import java.util.Iterator;
  * @see <a href="https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%81%D0%BB%D0%B0_%D0%A4%D0%B8%D0%B1%D0%BE%D0%BD%D0%B0%D1%87%D1%87%D0%B8">Числа Фибоначчи</a>
  */
 public class Fibonacci implements Iterable<Integer> {
+    private int len;
+
+    private Fibonacci(){};
+
+    public Fibonacci(int len) {
+        this.len = len;
+    }
 
     /**
      * Итератор, выполняющий обход последовательности
      * чисел Фибоначчи.
      */
-    private static class FibonacciIterator implements Iterator<Integer> {
+    private class FibonacciIterator implements Iterator<Integer> {
+
+        private final ArrayList<Integer> SEQUENCE = new ArrayList();
+        private final Iterator<Integer> IT;
+
+        public FibonacciIterator(int len) {
+            initialize(len, SEQUENCE);
+            IT = SEQUENCE.iterator();
+        }
+
 
         /**
          * Определяет, есть ли следующее значение
@@ -34,7 +52,7 @@ public class Fibonacci implements Iterable<Integer> {
          */
         @Override
         public boolean hasNext() {
-            throw new UnsupportedOperationException("Not implemented yet!");
+            return IT.hasNext();
         }
 
         /**
@@ -45,7 +63,22 @@ public class Fibonacci implements Iterable<Integer> {
          */
         @Override
         public Integer next() {
-            throw new UnsupportedOperationException("Not implemented yet!");
+            return IT.next();
+        }
+
+        void initialize(int len, ArrayList<Integer> list) {
+            int[] array = new int[len];
+
+            if (len > 1) {
+                array[0] = 0;
+                array[1] = 1;
+                if (len > 2) {
+                    for (int i = 2; i < len; i++)
+                        array[i] = array[i - 1] + array[i - 2];
+                }
+            } else
+                array[0] = 0;
+            for (int i : array) list.add(i);
         }
     }
 
@@ -57,6 +90,6 @@ public class Fibonacci implements Iterable<Integer> {
      */
     @Override
     public Iterator<Integer> iterator() {
-        return new FibonacciIterator();
+        return new FibonacciIterator(len);
     }
 }
