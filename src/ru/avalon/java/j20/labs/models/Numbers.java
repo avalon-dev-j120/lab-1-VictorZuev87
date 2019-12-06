@@ -1,6 +1,6 @@
 package ru.avalon.java.j20.labs.models;
 
-public final class Numbers {
+public final class Numbers{
 
     /**
      * Скрытый конструктор, чтобы предотвратить создание
@@ -27,8 +27,12 @@ public final class Numbers {
      * @param values массив значений
      * @return среднее арифметическое с точностью до типа {@code double}.
      */
-    public static double avg(int[] values) {
-        return (double) sum(values) / values.length;
+    public static<T extends Number> double avg(T[] values) {
+        double sum = 0.0;
+        for(int i = 0 ; i < values.length; i++) {
+            sum += values[i].doubleValue();
+        }
+        return sum / values.length;
     }
 
     /**
@@ -38,8 +42,8 @@ public final class Numbers {
      * @param b второе значение
      * @return большее из двух значений
      */
-    public static int max(int a, int b) {
-        return a > b ? a : b;
+    public static<T extends Number> T max(T a, T b) {
+        return a.longValue() > b.longValue() ? a : b;
     }
 
     /**
@@ -48,8 +52,8 @@ public final class Numbers {
      * @param values массив значений
      * @return максимальное значение массива
      */
-    public static int max(int[] values) {
-        int result = values[0];
+    public static<T extends Number> T max(T[] values) {
+        T result = values[0];
         for (int i = 1; i < values.length; i++) {
             result = max(result, values[i]);
         }
@@ -63,8 +67,8 @@ public final class Numbers {
      * @param b второе значение
      * @return меньшее из дух значений
      */
-    public static int min(int a, int b) {
-        return a < b ? a : b;
+    public static<T extends Number> T min(T a, T b) {
+        return  a.longValue() < b.longValue() ? a : b;
     }
 
     /**
@@ -73,8 +77,8 @@ public final class Numbers {
      * @param values массив значений
      * @return минимальное значение массива
      */
-    public static int min(int[] values) {
-        int result = values[0];
+    public static<T extends Number> T min(T[] values) {
+        T result = values[0];
         for (int i = 1; i < values.length; i++) {
             result = min(result, values[i]);
         }

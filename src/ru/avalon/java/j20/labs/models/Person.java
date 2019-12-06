@@ -42,4 +42,22 @@ public class Person {
     public String getSurname() {
         return surname;
     }
+
+    public boolean equals(Object object) {
+        if(object instanceof Person) {
+            Person person = (Person) object;
+            if(person.name == this.name && person.surname == this.surname) {
+                return true;
+            }
+            else
+                return false;
+
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode() + this.surname.hashCode();
+    }
 }
